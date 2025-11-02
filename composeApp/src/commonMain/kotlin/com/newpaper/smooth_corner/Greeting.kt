@@ -1,0 +1,9 @@
+package com.newpaper.smooth_corner
+
+class Greeting {
+    private val platform = getPlatform()
+
+    fun greet(): String {
+        return "Hello, ${platform.name}!"
+    }
+}
