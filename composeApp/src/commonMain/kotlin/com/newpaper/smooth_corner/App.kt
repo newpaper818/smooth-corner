@@ -25,8 +25,8 @@ fun App() {
         val scale = 2f
         val padding = 4.dp * scale
         val boxWidth = 100.dp * scale
-        val boxHeight = 60.dp * scale
-        val radius = 16.dp * scale
+        val boxHeight = 32.dp * scale
+        val radius = 30.dp * scale
         val boxColor = Color.DarkGray
 
 
@@ -42,7 +42,7 @@ fun App() {
                 modifier = Modifier
                     .padding(padding)
                     .size(boxWidth, boxHeight)
-                    .clip(SmoothRoundedCornerShape(radius, 0.1f))
+                    .clip(RoundedCornerShape(radius))
                     .background(boxColor)
             )
 
@@ -61,15 +61,7 @@ fun App() {
                     .clip(SmoothRoundedCornerShape(radius, 0.9f))
                     .background(boxColor)
             )
-            
 
-            Box(
-                modifier = Modifier
-                    .padding(padding)
-                    .size(boxWidth, boxHeight)
-                    .clip(RoundedCornerShape(radius))
-                    .background(boxColor)
-            )
         }
     }
 }

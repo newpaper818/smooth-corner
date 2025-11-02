@@ -16,7 +16,7 @@ plugins {
 kotlin {
 
     androidLibrary {
-        namespace = "io.github.newpaper.smooth-corner"
+        namespace = "io.github.newpaper818.smooth_corner"
         compileSdk = libs.versions.android.compileSdk.get().toInt()
         minSdk = libs.versions.android.minSdk.get().toInt()
 
@@ -69,9 +69,9 @@ afterEvaluate {
         publications {
             create<MavenPublication>("release") {
                 from(components["kotlin"])
-                groupId = "com.github.newpaper"
+                groupId = "com.github.newpaper818"
                 artifactId = "smooth-corner"
-                version = "0.9.4"
+                version = "0.9.5"
             }
         }
     }
