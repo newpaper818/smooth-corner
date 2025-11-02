@@ -71,7 +71,7 @@ afterEvaluate {
                 from(components["kotlin"])
                 groupId = "com.github.newpaper"
                 artifactId = "smooth-corner"
-                version = "0.9.0"
+                version = "0.9.2"
             }
         }
     }
