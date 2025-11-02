@@ -37,10 +37,10 @@ kotlin {
     }
 
     jvm()
-    js {
-        browser()
-        binaries.executable()
-    }
+//    js {
+//        browser()
+//        binaries.executable()
+//    }
     iosX64()
     iosArm64()
     iosSimulatorArm64()
@@ -71,7 +71,7 @@ afterEvaluate {
                 from(components["kotlin"])
                 groupId = "com.github.newpaper"
                 artifactId = "smooth-corner"
-                version = "0.9.3"
+                version = "0.9.4"
             }
         }
     }
