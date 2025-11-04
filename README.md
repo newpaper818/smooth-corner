@@ -1,76 +1,108 @@
-This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop (JVM).
+# 🌀 Smooth Corner for Jetpack Compose (Multiplatform)
 
-* [/composeApp](./composeApp/src) is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - [commonMain](./composeApp/src/commonMain/kotlin) is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    the [iosMain](./composeApp/src/iosMain/kotlin) folder would be the right place for such calls.
-    Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./composeApp/src/jvmMain/kotlin)
-    folder is the appropriate location.
+A **Jetpack Compose Multiplatform** library that provides **smooth rounded corner shapes** — perfect for iOS-like or Figma’s "Smooth corner" designs.  
+Built using [`androidx.graphics.shapes.RoundedPolygon`](https://developer.android.com/reference/androidx/graphics/shapes/RoundedPolygon).
 
-* [/iosApp](./iosApp/iosApp) contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform,
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+Supports:
+- **Android**
+- **iOS (Arm64 / X64 / Simulator)**
+- **Desktop (JVM)**
 
-### Build and Run Android Application
+</br>
+</br>
 
-To build and run the development version of the Android app, use the run configuration from the run widget
-in your IDE’s toolbar or build it directly from the terminal:
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:assembleDebug
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:assembleDebug
-  ```
+## 🧩 Installation
 
-### Build and Run Desktop (JVM) Application
 
-To build and run the development version of the desktop app, use the run configuration from the run widget
-in your IDE’s toolbar or run it directly from the terminal:
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:run
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:run
-  ```
+Add it in your `settings.gradle.kts` at the end of repositories:
 
-### Build and Run Web Application
+```kotlin
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        mavenCentral()
+        maven { url = uri("https://jitpack.io") }
+    }
+}
+```
 
-To build and run the development version of the web app, use the run configuration from the run widget
-in your IDE's toolbar or run it directly from the terminal:
-- for the Wasm target (faster, modern browsers):
-  - on macOS/Linux
-    ```shell
-    ./gradlew :composeApp:wasmJsBrowserDevelopmentRun
-    ```
-  - on Windows
-    ```shell
-    .\gradlew.bat :composeApp:wasmJsBrowserDevelopmentRun
-    ```
-- for the JS target (slower, supports older browsers):
-  - on macOS/Linux
-    ```shell
-    ./gradlew :composeApp:jsBrowserDevelopmentRun
-    ```
-  - on Windows
-    ```shell
-    .\gradlew.bat :composeApp:jsBrowserDevelopmentRun
-    ```
+Add the dependency:
+```kotlin
+dependencies {
+    implementation("com.github.newpaper818.smooth-corner:smooth-corner:0.9.5")
+}
+```
 
-### Build and Run iOS Application
+</br>
+</br>
 
-To build and run the development version of the iOS app, use the run configuration from the run widget
-in your IDE’s toolbar or open the [/iosApp](./iosApp) directory in Xcode and run it from there.
+## 🧱 Usage
 
----
+### Examples
+```kotlin
+// SmoothRoundedCornerShape
+SmoothRoundedCornerShape(radius = 16.dp) //smoothing = 0.6f is default
+SmoothRoundedCornerShape(radius = 16.dp, smoothing = 0.6f)
+SmoothRoundedCornerShape(percent = 25, smoothing = 0.6f)
+SmoothRoundedCornerShape(topStart = 16.dp, topEnd = 5.dp, bottomEnd = 0.dp, bottomStart = 20.dp, smoothing = 0.6f)
+SmoothRoundedCornerShape(topStartPercent = 10, topEndPercent = 5, bottomEndPercent = 0, bottomStartPercent = 20, smoothing = 0.6f)
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html),
-[Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform/#compose-multiplatform),
-[Kotlin/Wasm](https://kotl.in/wasm/)…
+// AbsoluteSmoothRoundedCornerShape
+AbsoluteSmoothRoundedCornerShape(topLeft = 10.dp, topRight = 5.dp, bottomRight = 0.dp, bottomLeft = 20.dp, smoothing = 0.6f)
+AbsoluteSmoothRoundedCornerShape(topLeftPercent = 10, topRightPercent = 5, bottomRightPercent = 0, bottomLeftPercent = 20, smoothing = 0.6f)
 
-We would appreciate your feedback on Compose/Web and Kotlin/Wasm in the public Slack channel [#compose-web](https://slack-chats.kotlinlang.org/c/compose-web).
-If you face any issues, please report them on [YouTrack](https://youtrack.jetbrains.com/newIssue?project=CMP).
+// Path.smoothRoundedRectangle
+Path.smoothRoundedRectangle(size = Size(100f, 50f), topLeft = 10f, topRight = 5f, bottomRight = 0f, bottomLeft = 20f, smoothing = 0.6f)
+```
+
+### Basic Example
+```kotlin
+@Composable
+fun SmoothCornerSample() {
+    Box(
+        modifier = Modifier
+            .size(120.dp)
+            .clip(SmoothRoundedCornerShape(16.dp))
+    ) {}
+}
+```
+
+### Different corner size
+```kotlin
+@Composable
+fun SmoothCornerSample() {
+    Box(
+        modifier = Modifier
+            .size(120.dp)
+            .clip(SmoothRoundedCornerShape(
+                topStart = 40.dp,
+                topEnd = 10.dp,
+                bottomEnd = 24.dp,
+                bottomStart = 16.dp,
+                smoothing = 0.6f // same as iOS-style
+              )
+            )
+    ) {}
+}
+```
+
+### Absolute shape (no layout direction mirroring)
+```kotlin
+@Composable
+fun SmoothCornerSample() {
+    Box(
+        modifier = Modifier
+            .size(120.dp)
+            .clip(AbsoluteSmoothRoundedCornerShape(
+                topLeft = 24.dp,
+                topRight = 48.dp,
+                bottomRight = 12.dp,
+                bottomLeft = 36.dp,
+                smoothing = 0.8f
+              )
+            )
+    ) {}
+}
+```
+
+
